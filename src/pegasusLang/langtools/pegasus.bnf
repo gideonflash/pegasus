@@ -1,0 +1,169 @@
+//-----------------------------------
+// Lexical grammar
+
+%lex
+
+%%
+
+\bif\b            return 'IF'
+\bthen\b          return 'THEN'
+\belse\b          return 'ELSE'
+
+\s+             /* skip whitespace */
+
+\"[^\"]*\"        return 'STRING'
+
+\d+             return 'NUMBER'
+\w+               return 'IDENTIFIER'
+
+[+\-]           return 'ADDITIVE_OPERATOR'
+[*/]           return 'MULTIPLICATIVE_OPERATOR'
+
+/lex
+
+// --------------------------------
+// Module include
+
+%{
+
+/**
+ * Creates generic binary expression node.
+ */
+function LogicalExpression(left, operator, right) {
+  return {
+    type: 'LogicalExpression',
+    operator,
+    left,
+    right,
+  };
+}
+
+%}
+
+/**
+ * The `PREC` precedence is lower, than of `ELSE`, so
+ * no shift-reduce conflict, and no "dangling-else" problem.
+ */
+%nonassoc PREC
+%nonassoc RESOLVER
+%nonassoc ELSE
+
+
+//-----------------------------------
+// Syntax grammar
+
+%%
+
+Program
+  : Expression {
+    $$ = {
+      type: 'Program',
+      body: $1
+    }
+  }
+  ;
+
+Expression
+  : Resolver
+  | IfExp
+  ;
+
+Resolver
+  : 'show' StringLiteral {
+    $$ = {
+      type: 'Resolver',
+      name: $1,
+      view: $2,
+    }
+  }
+  | 'useExperiment' StringLiteral StringLiteral {
+    $$ = {
+      type: 'Resolver',
+      name: $1,
+      experiment: $2,
+      default: $3
+    }
+  }
+  ;
+
+StringLiteral
+  : STRING { 
+    $$ = {
+      type: 'StringLiteral',
+      value: $1.slice(1, -1),
+    }
+  }
+  ;
+
+IfExp
+  : IfBasic  %prec PREC
+  | IfAlternate
+  ;
+
+IfBasic
+  : IF LogicalOrExpression THEN Resolver {
+    $$ = {
+      type: 'IfStatement',
+      test: $2,
+      consequent: $4,
+      alternate: undefined,
+    };
+  }
+  ;
+
+IfAlternate
+  : IF LogicalOrExpression THEN Resolver ELSE Resolver {
+    $$ = {
+      type: 'IfStatement',
+      test: $2,
+      consequent: $4,
+      alternate: $6,
+    }
+  }
+  | IF LogicalOrExpression THEN Resolver ELSE IfExp {
+    $$ = {
+      type: 'IfStatement',
+      test: $2,
+      consequent: $4,
+      alternate: $6,
+    }
+  }
+  ;
+
+
+
+
+LogicalOrExpression
+: LogicalAndExpression
+| LogicalOrExpression 'or' LogicalAndExpression {
+  $$ = LogicalExpression($1, $2, $3)
+}
+;
+
+LogicalAndExpression
+: Equality
+| LogicalAndExpression 'and' Equality {
+  $$ = LogicalExpression($1, $2, $3)
+}
+;
+
+Equality
+  : Identifier 'equal' STRING {
+    $$ = {
+      type: 'Equality',
+      op: $2,
+      field: $1,
+      arg: $3.slice(1, -1)
+    }
+  }
+  ;
+
+Identifier
+  : IDENTIFIER {
+    $$ = {
+      type: 'Identifier',
+      value: $1,
+    }
+  }
+  ;
+

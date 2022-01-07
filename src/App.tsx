@@ -1,24 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { ThemeProvider } from "emotion-theming";
+import { base, Heading, Text, Grid, Box } from "@feast-it/pesto";
+
+import { PegasusClientClientConfig } from "./pegasusClient/enquiry";
+import { ConfigCreator } from "./pegasusConfigBuilder/ConfigCreator";
+import { Preview } from "./pegasusClient/Preview";
 
 function App() {
+  const [config, setConfig] = useState<PegasusClientClientConfig | null>(null);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ThemeProvider theme={base}>
+        <Box p={5}>
+          <Heading fontSize={{ _: "headingLargeMobile", m: "headingLarge" }}>
+            Pegasus
+          </Heading>
+          <Grid gridTemplateColumns={{ m: "1fr 25%" }} gridGap={10}>
+            {config ? (
+              <Preview config={config} />
+            ) : (
+              <Text color="primary"> Waiting on valid config</Text>
+            )}
+            <ConfigCreator onValidConfig={setConfig} />
+          </Grid>
+        </Box>
+      </ThemeProvider>
     </div>
   );
 }
