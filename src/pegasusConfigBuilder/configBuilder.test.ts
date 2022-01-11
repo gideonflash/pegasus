@@ -1,6 +1,7 @@
 import { ValidatoinAST } from "../pegasusLang/langtools/types";
 import {
   addView,
+  addViewComponent,
   addViewValidation,
   createUiState,
   PegasusBuilderConfig,
@@ -11,17 +12,19 @@ describe("UI state views", () => {
     const state = createUiState();
     const expectedState: PegasusBuilderConfig = {
       views: {
-        view1: {
+        start: {
+          viewName: "start",
+          viewComponent: "start",
           resolverConfig: undefined,
         },
-        view2: {
+        view1: {
+          viewName: "view1",
           resolverConfig: undefined,
         },
       },
     };
 
     addView("view1", state);
-    addView("view2", state);
 
     expect(state).toStrictEqual(expectedState);
   });
@@ -30,7 +33,13 @@ describe("UI state views", () => {
     const state = createUiState();
     const expectedState: PegasusBuilderConfig = {
       views: {
+        start: {
+          viewName: "start",
+          viewComponent: "start",
+          resolverConfig: undefined,
+        },
         view1: {
+          viewName: "view1",
           resolverConfig: undefined,
         },
       },
@@ -38,6 +47,31 @@ describe("UI state views", () => {
 
     addView("view1", state);
     addView("view1", state);
+
+    expect(state).toStrictEqual(expectedState);
+  });
+});
+
+describe("UI state view component", () => {
+  test("Should add component to view", () => {
+    const state: PegasusBuilderConfig = {
+      views: {
+        view1: {
+          resolverConfig: undefined,
+        },
+      },
+    };
+
+    const expectedState: PegasusBuilderConfig = {
+      views: {
+        view1: {
+          viewComponent: "start",
+          resolverConfig: undefined,
+        },
+      },
+    };
+
+    addViewComponent("view1", "start", state);
 
     expect(state).toStrictEqual(expectedState);
   });

@@ -1,16 +1,13 @@
 import { useState } from "react";
-import { Enquiry, PegasusClientClientConfig } from "./enquiry";
+import { Context, Enquiry, PegasusClientClientConfig } from "./enquiry";
 
 export const usePegasus = (
   config: PegasusClientClientConfig,
+  context: Context,
   projectName = "default"
 ) => {
   const [logs, setLog] = useState("Action logs:\n");
-  const [enquiry] = useState(
-    new Enquiry(config, {
-      user: "customer",
-    })
-  );
+  const [enquiry] = useState(new Enquiry(config, context));
 
   const onNext = () => {
     const message = enquiry.next();

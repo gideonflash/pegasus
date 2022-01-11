@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Text, Box, TextArea } from "@feast-it/pesto";
+import { Text, Box, TextArea, Dropdown } from "@feast-it/pesto";
 import { ResolverConfig } from "./configBuilder";
 import { Env } from "./ConfigCreator";
+import { ViewComponent } from "../pegasusClient/enquiry";
+import { viewsCollection } from "../pegasusClient/Preview";
 
 interface ViewProps {
   viewName: string;
@@ -10,12 +12,23 @@ interface ViewProps {
     stringToParse: string,
     onError: (msg: string) => void
   ) => void;
+  addComponentName: (viewName: string, component: ViewComponent) => void;
   viewConfig: ResolverConfig;
 }
+
+const componentNames = Object.keys(viewsCollection);
+const options = componentNames.map((componentName) => {
+  return {
+    value: componentName,
+    label: componentName,
+  };
+});
+
 export const ViewEditor = ({
   viewName,
   addLogicToView,
   viewConfig,
+  addComponentName,
 }: ViewProps) => {
   const [stringToParse, setStringToParse] = useState("");
   const [errMsg, setErrMsg] = useState("");
@@ -33,8 +46,23 @@ export const ViewEditor = ({
   return (
     <Box p={4} m={2} boxShadow={0} bg="white">
       <Text color="primary" fontSize="small" m={0} fontWeight="heading">
-        {viewName}
+        {viewName.toLocaleUpperCase()}
       </Text>
+
+      <Text color="grey" fontSize="extraSmall" m={0}>
+        View component
+      </Text>
+
+      <Dropdown
+        name="dropdown-single"
+        value={viewConfig.viewComponent ?? ""}
+        options={options}
+        onChange={(selectedComponent: ViewComponent) =>
+          addComponentName(viewName, selectedComponent)
+        }
+        width={360}
+        placeholder={"Select component for view"}
+      />
 
       <Text color="grey" fontSize="extraSmall" m={0}>
         Your view logic

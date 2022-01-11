@@ -1,3 +1,4 @@
+import { ViewComponent } from "../pegasusClient/enquiry";
 import { createAst } from "../pegasusLang/langtools/createAst";
 import { ValidatoinAST } from "../pegasusLang/langtools/types";
 
@@ -8,6 +9,7 @@ export type SelctionResolverUI = {
 
 export type ResolverConfig = {
   viewName?: string;
+  viewComponent?: ViewComponent;
   resolverConfig?: SelctionResolverUI;
 };
 
@@ -28,6 +30,7 @@ export const createUiState = (): PegasusBuilderConfig => {
     views: {
       start: {
         viewName: "start",
+        viewComponent: "start",
         resolverConfig: undefined,
       },
     },
@@ -35,7 +38,7 @@ export const createUiState = (): PegasusBuilderConfig => {
 };
 
 /**
- * 2. *Add, Update, Remove a view
+ * Add, Update, Remove a view
  * TODO - Remove view
  */
 export const addView = (
@@ -68,7 +71,27 @@ export const addView = (
 };
 
 /**
- * 4. Add validation type
+ * Add view components
+ */
+export const addViewComponent = (
+  viewName: string,
+  componentName: ViewComponent,
+  uiState: PegasusBuilderConfig
+): Result => {
+  if (viewName === "") {
+    return { success: false, message: `${viewName} can not add empty` };
+  }
+
+  if (uiState?.views && uiState.views[viewName]) {
+    uiState.views[viewName].viewComponent = componentName;
+    return { success: true, message: `${componentName} added to view` };
+  } else {
+    return { success: false, message: `${viewName} not found` };
+  }
+};
+
+/**
+ * Add validation type
  *
  */
 export const addViewValidation = (

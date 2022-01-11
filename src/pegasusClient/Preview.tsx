@@ -1,15 +1,70 @@
 import React from "react";
 import { Box, Button, Text, Flex } from "@feast-it/pesto";
-import { PegasusClientClientConfig } from "./enquiry";
+import { Formik, FormikHelpers, useFormikContext } from "formik";
+import { Context, PegasusClientClientConfig, ViewComponents } from "./enquiry";
 import { usePegasus } from "./usePegasus";
+import { Welcome, EventType, Tier1, Tags } from "./ViewComponents";
 
 interface ViewProps {
   config: PegasusClientClientConfig;
 }
 
-export const Preview = ({ config }: ViewProps) => {
-  const { currentView, logs, onBack, onNext } = usePegasus(config);
+export const viewsCollection: ViewComponents = {
+  start: {
+    name: "Start page",
+    component: Welcome,
+  },
+  eventType: {
+    name: "EventType page",
+    component: EventType,
+  },
+  tier1: {
+    name: "Start page",
+    component: Tier1,
+  },
+  tags: {
+    name: "Start page",
+    component: Tags,
+  },
+  priorityTags: {
+    name: "Start page",
+    component: Welcome,
+  },
+  done: {
+    name: "Start page",
+    component: Welcome,
+  },
+};
 
+export const Preview = ({ config }: ViewProps) => {
+  return (
+    <Formik
+      initialValues={{
+        user: "customer",
+        event_type: "",
+        category_tier1: "",
+        tags: [] as string[],
+      }}
+      onSubmit={(
+        values: Context,
+        { setSubmitting }: FormikHelpers<Context>
+      ) => {
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 2));
+          setSubmitting(false);
+        }, 500);
+      }}
+    >
+      <CustomPreview config={config} />
+    </Formik>
+  );
+};
+
+const CustomPreview = ({ config }: ViewProps) => {
+  const { values } = useFormikContext<Context>();
+  const { currentView, logs, onBack, onNext } = usePegasus(config, values);
+
+  console.log({ values });
   return (
     <Box>
       <Box
@@ -20,11 +75,15 @@ export const Preview = ({ config }: ViewProps) => {
         borderStyle={"solid"}
         borderRadius={1}
       >
-        <Text fontSize="display" fontWeight="heading" textAlign={"center"}>
-          {currentView
-            ? `${currentView.viewName.toLocaleUpperCase()} VIEW`
-            : `Click Next`}
-        </Text>
+        {currentView ? (
+          (() => {
+            const Page = viewsCollection[currentView.viewComponent].component;
+
+            return <Page />;
+          })()
+        ) : (
+          <Text>Click Next</Text>
+        )}
       </Box>
       <Flex justifyContent={"space-between"} pt={2} pb={4}>
         <Button size="medium" mr={4} onClick={() => onBack()}>

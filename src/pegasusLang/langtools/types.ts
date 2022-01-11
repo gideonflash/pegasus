@@ -1,3 +1,5 @@
+import { Context } from "../../pegasusClient/enquiry";
+
 type PegasusAST = {
   type: "Program";
   body: Resolver | IfExp;
@@ -37,9 +39,11 @@ export type Equality = {
   arg: string;
 };
 
+type ContextIdentifier = keyof Context;
+
 type Identifier = {
   type: "Identifier";
-  value: string;
+  value: ContextIdentifier;
 };
 
 export type Literals = BooleanLiteral | StringLiteral;

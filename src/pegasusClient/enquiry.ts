@@ -13,17 +13,38 @@ export enum ContextKey {
 }
 
 export type Context = {
-  [key: string]: string;
+  user: string;
+  event_type: string;
+  category_tier1: string;
+  tags: string[];
 };
+
+type ComponentNames =
+  | "start"
+  | "eventType"
+  | "tier1"
+  | "tags"
+  | "priorityTags"
+  | "done";
+
+export type ViewComponents = Record<
+  ComponentNames,
+  {
+    name: string;
+    component: React.FunctionComponent;
+  }
+>;
 
 export type ContextValues = Context[keyof Context];
 
-export interface ViewConfig<T> {
+export type ViewComponent = keyof ViewComponents;
+export interface ViewConfig<T, K extends ViewComponent> {
   viewName: string;
+  viewComponent: K;
   resolverConfig: T;
 }
 
-export type View = ViewConfig<SelectionResovler>;
+export type View = ViewConfig<SelectionResovler, ViewComponent>;
 
 export type PegasusClientClientConfig = {
   views: {

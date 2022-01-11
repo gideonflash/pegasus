@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Text, Container } from "@feast-it/pesto";
-import { addView, addViewValidation, createUiState } from "./configBuilder";
-import { PegasusClientClientConfig } from "../pegasusClient/enquiry";
+import {
+  addView,
+  addViewValidation,
+  createUiState,
+  addViewComponent,
+} from "./configBuilder";
+import {
+  PegasusClientClientConfig,
+  ViewComponent,
+} from "../pegasusClient/enquiry";
 import { ViewEditor } from "./ViewEditor";
 import { ViewAdder } from "./ViewAdder";
 
@@ -34,7 +42,10 @@ export const ConfigCreator = ({ onValidConfig }: ConfigCreatorProps) => {
        */
       const hasValidViews = Object.entries(config.views).every(
         ([_, resolver]) => {
-          return !!resolver.resolverConfig;
+          const hasResolver = !!resolver.resolverConfig;
+          const hasComponentName = !!resolver.viewComponent;
+
+          return hasResolver && hasComponentName;
         }
       );
 
@@ -51,6 +62,18 @@ export const ConfigCreator = ({ onValidConfig }: ConfigCreatorProps) => {
 
   const addViewToConfig = (viewName: string) => {
     const result = addView(viewName, config);
+
+    if (!result.success) {
+      setViewAdderErr(result.message);
+    }
+
+    setConfig((prev) => {
+      return { ...prev, ...config };
+    });
+  };
+
+  const addComponentName = (viewName: string, component: ViewComponent) => {
+    const result = addViewComponent(viewName, component, config);
 
     if (!result.success) {
       setViewAdderErr(result.message);
@@ -111,6 +134,7 @@ export const ConfigCreator = ({ onValidConfig }: ConfigCreatorProps) => {
               key={viewName}
               viewName={viewName}
               addLogicToView={addLogicToView}
+              addComponentName={addComponentName}
               viewConfig={viewConfig}
             />
           );
