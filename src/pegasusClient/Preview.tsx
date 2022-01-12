@@ -64,7 +64,6 @@ const CustomPreview = ({ config }: ViewProps) => {
   const { values } = useFormikContext<Context>();
   const { currentView, logs, onBack, onNext } = usePegasus(config, values);
 
-  console.log({ values });
   return (
     <Box>
       <Box

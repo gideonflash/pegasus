@@ -65,11 +65,11 @@ export class Enquiry {
     this.ctx = ctx;
   }
 
-  next() {
+  async next() {
     // if current is empty get start,
     if (this.curr) {
       // otherwise use curr node.choose to lookup in tree
-      const { viewName, message } = getView(this.curr, this.ctx);
+      const { viewName, message } = await getView(this.curr, this.ctx);
 
       // Something did not go well
       if (!viewName) {

@@ -6,14 +6,16 @@ import {
   LogicalExpression,
   Resolver,
   StringLiteral,
+  ExperimentLiteral,
 } from "./types";
 
 type Expression = Resolver | IfExp;
+type PegasusEval = StringLiteral | ExperimentLiteral;
 
 export const evalPegasus = (
   exp: Expression,
   ctx: Context
-): StringLiteral | undefined => {
+): PegasusEval | undefined => {
   const { type } = exp;
   if (type === "Resolver") {
     if (exp.name === "show") {
@@ -24,7 +26,11 @@ export const evalPegasus = (
     }
 
     if (exp.name === "useExperiment") {
-      return undefined;
+      return {
+        type: "ExperimentLiteral",
+        experimentName: exp.experiment.value,
+        defaultView: exp.default.value,
+      };
     }
   }
 

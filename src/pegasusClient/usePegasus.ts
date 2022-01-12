@@ -10,9 +10,10 @@ export const usePegasus = (
   const [enquiry] = useState(new Enquiry(config, context));
 
   const onNext = () => {
-    const message = enquiry.next();
-    setLog((prev) => {
-      return `${prev}\n${message}`;
+    enquiry.next().then((message) => {
+      setLog((prev) => {
+        return `${prev}\n${message}`;
+      });
     });
   };
 

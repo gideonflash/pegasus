@@ -58,4 +58,10 @@ export type StringLiteral = {
   value: string;
 };
 
+export type ExperimentLiteral = {
+  type: "ExperimentLiteral";
+  experimentName: string;
+  defaultView: string;
+};
+
 export type ValidatoinAST = PegasusAST | null;
