@@ -105,7 +105,7 @@ export const getView = async (
 
       const { name, treatment } = experiment.data.getTreatment;
 
-      if (treatment === "control") {
+      if (treatment !== result.experimentName) {
         return {
           viewName: result.defaultView,
           message: `using experiment ${name}`,

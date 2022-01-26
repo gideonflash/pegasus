@@ -9,6 +9,10 @@ export const usePegasus = (
   const [logs, setLog] = useState("Action logs:\n");
   const [enquiry] = useState(new Enquiry(config, context));
 
+  /**
+   * TODO:
+   * Use new context on update
+   */
   const onNext = () => {
     enquiry.next().then((message) => {
       setLog((prev) => {
