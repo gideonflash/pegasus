@@ -3,7 +3,7 @@ import { Text, Box, TextArea, Dropdown } from "@feast-it/pesto";
 import { ResolverConfig } from "./configBuilder";
 import { Env } from "./ConfigCreator";
 import { ViewComponent } from "../pegasusClient/enquiry";
-import { viewsCollection } from "../pegasusClient/Preview";
+import { viewsCollection } from "../pegasusWorkSpaces/Preview";
 
 interface ViewProps {
   viewName: string;

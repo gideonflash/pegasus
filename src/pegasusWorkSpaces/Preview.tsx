@@ -1,8 +1,12 @@
 import React from "react";
 import { Box, Button, Text, Flex } from "@feast-it/pesto";
 import { Formik, FormikHelpers, useFormikContext } from "formik";
-import { Context, PegasusClientClientConfig, ViewComponents } from "./enquiry";
-import { usePegasus } from "./usePegasus";
+import {
+  Context,
+  PegasusClientClientConfig,
+  ViewComponents,
+} from "../pegasusClient/enquiry";
+import { usePegasus } from "../pegasusClient/usePegasus";
 import { Welcome, EventType, Tier1, Tags } from "./ViewComponents";
 
 interface ViewProps {

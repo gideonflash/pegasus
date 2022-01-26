@@ -12,7 +12,7 @@ import {
   PillOption,
   Box,
 } from "@feast-it/pesto";
-import { Context } from "../enquiry";
+import { Context } from "../../pegasusClient/enquiry";
 import { TagsRequest } from "./constants/tags";
 
 const COLORS = [
