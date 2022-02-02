@@ -23,11 +23,6 @@ const client = new ApolloClient({
   },
 });
 
-export type SelectionResovler = {
-  config: string;
-  valAst: ValidatoinAST;
-};
-
 type Result = { viewName?: string; message: string };
 
 type ViewResult =

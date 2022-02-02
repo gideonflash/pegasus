@@ -13,6 +13,16 @@ interface ViewProps {
   config: PegasusClientClientConfig;
 }
 
+/**
+ * Context
+ */
+export type EquiryContext = {
+  user: string;
+  event_type: string;
+  category_tier1: string;
+  tags: string[];
+};
+
 export const viewsCollection: ViewComponents = {
   start: {
     name: "Start page",
@@ -49,11 +59,11 @@ export const Preview = ({ config }: ViewProps) => {
           event_type: "",
           category_tier1: "",
           tags: [] as string[],
-        } as Context
+        } as EquiryContext
       }
       onSubmit={(
         values: Context,
-        { setSubmitting }: FormikHelpers<Context>
+        { setSubmitting }: FormikHelpers<EquiryContext>
       ) => {
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
@@ -67,7 +77,7 @@ export const Preview = ({ config }: ViewProps) => {
 };
 
 const CustomPreview = ({ config }: ViewProps) => {
-  const { values } = useFormikContext<Context>();
+  const { values } = useFormikContext<EquiryContext>();
   const { currentView, logs, onBack, onNext } = usePegasus(config, values);
 
   return (

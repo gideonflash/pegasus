@@ -1,13 +1,11 @@
-import { SelectionResovler, getView } from "./getView";
+import { ValidatoinAST } from "../pegasusLang/langtools/types";
+import { getView } from "./getView";
 
 /**
  * Context
  */
 export type Context = {
-  user: string;
-  event_type: string;
-  category_tier1: string;
-  tags: string[];
+  [key: string]: string | string[];
 };
 
 type ComponentNames =
@@ -26,30 +24,31 @@ export type ViewComponents = Record<
   }
 >;
 
-export type ContextValues = Context[keyof Context];
-
 export type ViewComponent = keyof ViewComponents;
-export interface ViewConfig<T, K extends ViewComponent> {
+export interface ViewConfig<T extends string> {
   viewName: string;
-  viewComponent: K;
-  resolverConfig: T;
+  viewComponent: T;
+  resolverConfig: {
+    config: string;
+    valAst: ValidatoinAST;
+  };
 }
-
-export type View = ViewConfig<SelectionResovler, ViewComponent>;
 
 export type PegasusClientClientConfig = {
   views: {
-    [key: string]: View;
+    [key: string]: ViewConfig<ViewComponent>;
   };
 };
 
-export class SequenceRunner {
-  curr?: View;
-  old: View[];
-  tree: PegasusClientClientConfig;
-  ctx: Context;
+export type View = ViewConfig<ViewComponent>;
 
-  constructor(tree: PegasusClientClientConfig, ctx: Context) {
+export class SequenceRunner<T extends Context> {
+  curr?: ViewConfig<ViewComponent>;
+  old: ViewConfig<ViewComponent>[];
+  tree: PegasusClientClientConfig;
+  ctx: T;
+
+  constructor(tree: PegasusClientClientConfig, ctx: T) {
     this.curr = undefined;
     this.old = [];
     this.tree = tree;

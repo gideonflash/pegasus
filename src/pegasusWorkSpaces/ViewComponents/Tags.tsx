@@ -12,8 +12,9 @@ import {
   PillOption,
   Box,
 } from "@feast-it/pesto";
-import { Context } from "../../pegasusClient/sequenceRunner";
+
 import { TagsRequest } from "./constants/tags";
+import { EquiryContext } from "../Preview";
 
 const COLORS = [
   "#D4E6A8",
@@ -26,7 +27,7 @@ const COLORS = [
 
 export const Tags = () => {
   const [tags, setTags] = useState<{ label: string; value: string }[]>([]);
-  const { values, setFieldValue } = useFormikContext<Context>();
+  const { values, setFieldValue } = useFormikContext<EquiryContext>();
   const { heading, description, tagsType, optionType, tagDestination } = {
     heading: "What’s your event style?",
     description:
