@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Text, Box, TextArea, Dropdown } from "@feast-it/pesto";
 import { ResolverConfig } from "./configBuilder";
 import { Env } from "./ConfigCreator";
-import { ViewComponent } from "../pegasusClient/sequenceRunner";
-import { viewsCollection } from "../pegasusWorkSpaces/Preview";
+import { viewsCollection } from "../pegasusWorkSpaces/TahiniEnquiryForm/Preview";
 
 interface ViewProps {
   viewName: string;
@@ -12,7 +11,7 @@ interface ViewProps {
     stringToParse: string,
     onError: (msg: string) => void
   ) => void;
-  addComponentName: (viewName: string, component: ViewComponent) => void;
+  addComponentName: (viewName: string, component: string) => void;
   viewConfig: ResolverConfig;
 }
 
@@ -57,7 +56,7 @@ export const ViewEditor = ({
         name="dropdown-single"
         value={viewConfig.viewComponent ?? ""}
         options={options}
-        onChange={(selectedComponent: ViewComponent) =>
+        onChange={(selectedComponent: string) =>
           addComponentName(viewName, selectedComponent)
         }
         width={360}

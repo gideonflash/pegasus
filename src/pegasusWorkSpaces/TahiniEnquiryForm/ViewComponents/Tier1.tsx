@@ -9,10 +9,10 @@ import {
 } from "@feast-it/pesto";
 import { useFormikContext } from "formik";
 import { TIER1, TIER_1_ICONS } from "./constants/tier1Types";
-import { EquiryContext } from "../Preview";
+import { EnquiryContext } from "../Preview";
 
 export const Tier1 = () => {
-  const { values } = useFormikContext<EquiryContext>();
+  const { values } = useFormikContext<EnquiryContext>();
   const tier1Verticals = TIER1;
 
   const FIELDS = useMemo(

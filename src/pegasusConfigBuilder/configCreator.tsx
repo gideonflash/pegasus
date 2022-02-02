@@ -6,10 +6,7 @@ import {
   createUiState,
   addViewComponent,
 } from "./configBuilder";
-import {
-  PegasusClientClientConfig,
-  ViewComponent,
-} from "../pegasusClient/sequenceRunner";
+import { PegasusClientClientConfig } from "../pegasusClient/sequenceRunner";
 import { ViewEditor } from "./ViewEditor";
 import { ViewAdder } from "./ViewAdder";
 
@@ -72,7 +69,7 @@ export const ConfigCreator = ({ onValidConfig }: ConfigCreatorProps) => {
     });
   };
 
-  const addComponentName = (viewName: string, component: ViewComponent) => {
+  const addComponentName = (viewName: string, component: string) => {
     const result = addViewComponent(viewName, component, config);
 
     if (!result.success) {

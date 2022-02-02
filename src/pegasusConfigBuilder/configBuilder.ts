@@ -1,4 +1,3 @@
-import { ViewComponent } from "../pegasusClient/sequenceRunner";
 import { createAst } from "../pegasusLang/langtools/createAst";
 import { ValidatoinAST } from "../pegasusLang/langtools/types";
 
@@ -9,7 +8,7 @@ export type SelctionResolverUI = {
 
 export type ResolverConfig = {
   viewName?: string;
-  viewComponent?: ViewComponent;
+  viewComponent?: string;
   resolverConfig?: SelctionResolverUI;
 };
 
@@ -75,7 +74,7 @@ export const addView = (
  */
 export const addViewComponent = (
   viewName: string,
-  componentName: ViewComponent,
+  componentName: string,
   uiState: PegasusBuilderConfig
 ): Result => {
   if (viewName === "") {

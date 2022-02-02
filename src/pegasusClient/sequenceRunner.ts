@@ -8,26 +8,9 @@ export type Context = {
   [key: string]: string | string[];
 };
 
-type ComponentNames =
-  | "start"
-  | "eventType"
-  | "tier1"
-  | "tags"
-  | "priorityTags"
-  | "done";
-
-export type ViewComponents = Record<
-  ComponentNames,
-  {
-    name: string;
-    component: React.FunctionComponent;
-  }
->;
-
-export type ViewComponent = keyof ViewComponents;
-export interface ViewConfig<T extends string> {
+export interface ViewConfig {
   viewName: string;
-  viewComponent: T;
+  viewComponent: string;
   resolverConfig: {
     config: string;
     valAst: ValidatoinAST;
@@ -36,15 +19,13 @@ export interface ViewConfig<T extends string> {
 
 export type PegasusClientClientConfig = {
   views: {
-    [key: string]: ViewConfig<ViewComponent>;
+    [key: string]: ViewConfig;
   };
 };
 
-export type View = ViewConfig<ViewComponent>;
-
 export class SequenceRunner<T extends Context> {
-  curr?: ViewConfig<ViewComponent>;
-  old: ViewConfig<ViewComponent>[];
+  curr?: ViewConfig;
+  old: ViewConfig[];
   tree: PegasusClientClientConfig;
   ctx: T;
 

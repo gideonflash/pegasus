@@ -3,18 +3,16 @@ import { useFormikContext } from "formik";
 import {
   Heading,
   Text,
-  Grid,
   Flex,
   FormikField,
   FormikError,
   FieldGroup,
-  Option,
   PillOption,
   Box,
 } from "@feast-it/pesto";
 
 import { TagsRequest } from "./constants/tags";
-import { EquiryContext } from "../Preview";
+import { EnquiryContext } from "../Preview";
 
 const COLORS = [
   "#D4E6A8",
@@ -27,14 +25,13 @@ const COLORS = [
 
 export const Tags = () => {
   const [tags, setTags] = useState<{ label: string; value: string }[]>([]);
-  const { values, setFieldValue } = useFormikContext<EquiryContext>();
-  const { heading, description, tagsType, optionType, tagDestination } = {
+  const { values, setFieldValue } = useFormikContext<EnquiryContext>();
+  const { heading, description, tagsType, optionType } = {
     heading: "What’s your event style?",
     description:
       "Let us know what themes are most relevant for your event. You can pick as many as you like.",
     tagsType: "event_theme",
     optionType: "pill",
-    tagDestination: "event",
   };
 
   useEffect(() => {

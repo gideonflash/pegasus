@@ -4,9 +4,8 @@ import { Formik, FormikHelpers, useFormikContext } from "formik";
 import {
   Context,
   PegasusClientClientConfig,
-  ViewComponents,
-} from "../pegasusClient/sequenceRunner";
-import { usePegasus } from "../pegasusClient/usePegasus";
+} from "../../pegasusClient/sequenceRunner";
+import { usePegasus } from "../../pegasusClient/usePegasus";
 import { Welcome, EventType, Tier1, Tags } from "./ViewComponents";
 
 interface ViewProps {
@@ -16,12 +15,20 @@ interface ViewProps {
 /**
  * Context
  */
-export type EquiryContext = {
+export type EnquiryContext = {
   user: string;
   event_type: string;
   category_tier1: string;
   tags: string[];
 };
+
+export type ViewComponents = Record<
+  string,
+  {
+    name: string;
+    component: React.FunctionComponent;
+  }
+>;
 
 export const viewsCollection: ViewComponents = {
   start: {
@@ -59,11 +66,11 @@ export const Preview = ({ config }: ViewProps) => {
           event_type: "",
           category_tier1: "",
           tags: [] as string[],
-        } as EquiryContext
+        } as EnquiryContext
       }
       onSubmit={(
         values: Context,
-        { setSubmitting }: FormikHelpers<EquiryContext>
+        { setSubmitting }: FormikHelpers<EnquiryContext>
       ) => {
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
@@ -77,7 +84,7 @@ export const Preview = ({ config }: ViewProps) => {
 };
 
 const CustomPreview = ({ config }: ViewProps) => {
-  const { values } = useFormikContext<EquiryContext>();
+  const { values } = useFormikContext<EnquiryContext>();
   const { currentView, logs, onBack, onNext } = usePegasus(config, values);
 
   return (

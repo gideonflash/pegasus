@@ -4,7 +4,7 @@ import { base, Heading, Text, Grid, Box } from "@feast-it/pesto";
 
 import { PegasusClientClientConfig } from "./pegasusClient/sequenceRunner";
 import { ConfigCreator } from "./pegasusConfigBuilder/ConfigCreator";
-import { Preview } from "./pegasusWorkSpaces/Preview";
+import { Preview } from "./pegasusWorkSpaces/TahiniEnquiryForm/Preview";
 
 function App() {
   const [config, setConfig] = useState<PegasusClientClientConfig | null>(null);

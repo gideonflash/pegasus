@@ -1,4 +1,4 @@
-import { Context, View } from "./sequenceRunner";
+import { Context, ViewConfig } from "./sequenceRunner";
 import { evalPegasus } from "../pegasusLang/langtools/evaluator";
 import { ValidatoinAST } from "../pegasusLang/langtools/types";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
@@ -75,7 +75,7 @@ export const evalValidation = (
 };
 
 export const getView = async (
-  viewConfig: View,
+  viewConfig: ViewConfig,
   ctx: Context
 ): Promise<Result> => {
   const result = evalValidation(viewConfig.resolverConfig.valAst, ctx);
