@@ -1,4 +1,4 @@
-import { Context, View } from "./enquiry";
+import { Context, View } from "./sequenceRunner";
 import { evalPegasus } from "../pegasusLang/langtools/evaluator";
 import { ValidatoinAST } from "../pegasusLang/langtools/types";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";

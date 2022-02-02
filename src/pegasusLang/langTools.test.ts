@@ -1,4 +1,4 @@
-import { Context } from "../pegasusClient/enquiry";
+import { Context } from "../pegasusClient/sequenceRunner";
 import { createAst } from "./langtools/createAst";
 import { evalPegasus } from "./langtools/evaluator";
 

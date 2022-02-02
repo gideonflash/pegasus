@@ -1,4 +1,4 @@
-import { ViewComponent } from "../pegasusClient/enquiry";
+import { ViewComponent } from "../pegasusClient/sequenceRunner";
 import { createAst } from "../pegasusLang/langtools/createAst";
 import { ValidatoinAST } from "../pegasusLang/langtools/types";
 

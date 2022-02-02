@@ -3,15 +3,6 @@ import { SelectionResovler, getView } from "./getView";
 /**
  * Context
  */
-export enum ContextKey {
-  USER = "user",
-  TIER_ONE = "tier1",
-  TAGS = "tags",
-  PRIORITY_TAGS = "priorityTags",
-  LOCATION = "location",
-  EMAIL = "email",
-}
-
 export type Context = {
   user: string;
   event_type: string;
@@ -52,7 +43,7 @@ export type PegasusClientClientConfig = {
   };
 };
 
-export class Enquiry {
+export class SequenceRunner {
   curr?: View;
   old: View[];
   tree: PegasusClientClientConfig;

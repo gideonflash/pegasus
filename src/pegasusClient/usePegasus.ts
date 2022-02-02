@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { Context, Enquiry, PegasusClientClientConfig } from "./enquiry";
+import {
+  Context,
+  SequenceRunner,
+  PegasusClientClientConfig,
+} from "./sequenceRunner";
 
 export const usePegasus = (
   config: PegasusClientClientConfig,
@@ -7,7 +11,7 @@ export const usePegasus = (
   projectName = "default"
 ) => {
   const [logs, setLog] = useState("Action logs:\n");
-  const [enquiry] = useState(new Enquiry(config, context));
+  const [enquiry] = useState(new SequenceRunner(config, context));
 
   /**
    * TODO:

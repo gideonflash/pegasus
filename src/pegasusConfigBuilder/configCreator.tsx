@@ -9,7 +9,7 @@ import {
 import {
   PegasusClientClientConfig,
   ViewComponent,
-} from "../pegasusClient/enquiry";
+} from "../pegasusClient/sequenceRunner";
 import { ViewEditor } from "./ViewEditor";
 import { ViewAdder } from "./ViewAdder";
 

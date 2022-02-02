@@ -9,7 +9,7 @@ import {
 } from "@feast-it/pesto";
 import { useFormikContext } from "formik";
 import { TIER1, TIER_1_ICONS } from "./constants/tier1Types";
-import { Context } from "../../pegasusClient/enquiry";
+import { Context } from "../../pegasusClient/sequenceRunner";
 
 export const Tier1 = () => {
   const { values } = useFormikContext<Context>();

@@ -5,7 +5,7 @@ import {
   Context,
   PegasusClientClientConfig,
   ViewComponents,
-} from "../pegasusClient/enquiry";
+} from "../pegasusClient/sequenceRunner";
 import { usePegasus } from "../pegasusClient/usePegasus";
 import { Welcome, EventType, Tier1, Tags } from "./ViewComponents";
 
@@ -43,12 +43,14 @@ export const viewsCollection: ViewComponents = {
 export const Preview = ({ config }: ViewProps) => {
   return (
     <Formik
-      initialValues={{
-        user: "customer",
-        event_type: "",
-        category_tier1: "",
-        tags: [] as string[],
-      }}
+      initialValues={
+        {
+          user: "customer",
+          event_type: "",
+          category_tier1: "",
+          tags: [] as string[],
+        } as Context
+      }
       onSubmit={(
         values: Context,
         { setSubmitting }: FormikHelpers<Context>
