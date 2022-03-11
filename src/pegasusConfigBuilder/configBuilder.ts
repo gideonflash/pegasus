@@ -1,5 +1,5 @@
-import { createAst } from "../pegasusLang/langtools/createAst";
-import { ValidatoinAST } from "../pegasusLang/langtools/types";
+import { createAst } from "../pegasusLang/createAst";
+import { ValidatoinAST } from "../pegasusLang/types";
 
 export type SelctionResolverUI = {
   config: string;

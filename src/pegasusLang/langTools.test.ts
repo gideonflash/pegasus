@@ -1,6 +1,6 @@
-import { Context } from "../pegasusClient/sequenceRunner";
-import { createAst } from "./langtools/createAst";
-import { evalPegasus } from "./langtools/evaluator";
+import { Context } from "../pegasusRunner/flowRunner";
+import { createAst } from "./createAst";
+import { evalPegasus } from "./evaluator";
 
 const evaluate = (program: string, ctx: Context) => {
   const parsed = createAst(program);

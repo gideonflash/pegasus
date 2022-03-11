@@ -4,7 +4,7 @@ import { Formik, FormikHelpers, useFormikContext } from "formik";
 import {
   Context,
   PegasusClientClientConfig,
-} from "../../pegasusClient/sequenceRunner";
+} from "../../pegasusRunner/flowRunner";
 import { usePegasus } from "../../pegasusClient/usePegasus";
 import { Welcome, EventType, Tier1, Tags } from "./ViewComponents";
 

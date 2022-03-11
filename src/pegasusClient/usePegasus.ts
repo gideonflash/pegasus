@@ -1,9 +1,9 @@
 import { useState } from "react";
 import {
   Context,
-  SequenceRunner,
+  FlowRunner,
   PegasusClientClientConfig,
-} from "./sequenceRunner";
+} from "../pegasusRunner/flowRunner";
 
 export const usePegasus = (
   config: PegasusClientClientConfig,
@@ -11,7 +11,7 @@ export const usePegasus = (
   projectName = "default"
 ) => {
   const [logs, setLog] = useState("Action logs:\n");
-  const [enquiry] = useState(new SequenceRunner(config, context));
+  const [enquiry] = useState(new FlowRunner(config, context));
 
   const onNext = () => {
     enquiry.next(context).then((message) => {

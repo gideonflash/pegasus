@@ -6,7 +6,7 @@ import {
   createUiState,
   addViewComponent,
 } from "./configBuilder";
-import { PegasusClientClientConfig } from "../pegasusClient/sequenceRunner";
+import { PegasusClientClientConfig } from "../pegasusRunner/flowRunner";
 import { ViewEditor } from "./ViewEditor";
 import { ViewAdder } from "./ViewAdder";
 

@@ -1,6 +1,6 @@
-import { Context, ViewConfig } from "./sequenceRunner";
-import { evalPegasus } from "../pegasusLang/langtools/evaluator";
-import { ValidatoinAST } from "../pegasusLang/langtools/types";
+import { Context, ViewConfig } from "./flowRunner";
+import { evalPegasus } from "../pegasusLang/evaluator";
+import { ValidatoinAST } from "../pegasusLang/types";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import cookiesBrowser from "js-cookie";
 

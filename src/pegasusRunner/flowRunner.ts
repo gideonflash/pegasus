@@ -1,4 +1,4 @@
-import { ValidatoinAST } from "../pegasusLang/langtools/types";
+import { ValidatoinAST } from "../pegasusLang/types";
 import { getView } from "./getView";
 
 /**
@@ -23,7 +23,7 @@ export type PegasusClientClientConfig = {
   };
 };
 
-export class SequenceRunner<T extends Context> {
+export class FlowRunner<T extends Context> {
   curr?: ViewConfig;
   old: ViewConfig[];
   tree: PegasusClientClientConfig;

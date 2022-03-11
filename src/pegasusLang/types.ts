@@ -1,4 +1,4 @@
-import { Context } from "../../pegasusClient/sequenceRunner";
+import { Context } from "../pegasusRunner/flowRunner";
 
 type PegasusAST = {
   type: "Program";

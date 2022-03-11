@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { ThemeProvider } from "emotion-theming";
 import { base, Heading, Text, Grid, Box } from "@feast-it/pesto";
 
-import { PegasusClientClientConfig } from "./pegasusClient/sequenceRunner";
+import { PegasusClientClientConfig } from "./pegasusRunner/flowRunner";
 import { ConfigCreator } from "./pegasusConfigBuilder/ConfigCreator";
-import { Preview } from "./pegasusWorkSpaces/TahiniEnquiryForm/Preview";
+import { Preview } from "./pegasusFlowLibrary/TahiniEnquiryForm/Preview";
 
 function App() {
   const [config, setConfig] = useState<PegasusClientClientConfig | null>(null);

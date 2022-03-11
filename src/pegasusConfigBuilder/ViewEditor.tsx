@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Text, Box, TextArea, Dropdown } from "@feast-it/pesto";
 import { ResolverConfig } from "./configBuilder";
 import { Env } from "./ConfigCreator";
-import { viewsCollection } from "../pegasusWorkSpaces/TahiniEnquiryForm/Preview";
+import { viewsCollection } from "../pegasusFlowLibrary/TahiniEnquiryForm/Preview";
 
 interface ViewProps {
   viewName: string;

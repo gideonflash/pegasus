@@ -1,4 +1,4 @@
-import { ValidatoinAST } from "../pegasusLang/langtools/types";
+import { ValidatoinAST } from "../pegasusLang/types";
 import {
   addView,
   addViewComponent,
