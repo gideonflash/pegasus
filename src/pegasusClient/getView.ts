@@ -80,7 +80,6 @@ export const getView = async (
 ): Promise<Result> => {
   const result = evalValidation(viewConfig.resolverConfig.valAst, ctx);
 
-  console.log({ result });
   if (result.type === "error") return { message: result.message };
 
   if (result.type === "view")

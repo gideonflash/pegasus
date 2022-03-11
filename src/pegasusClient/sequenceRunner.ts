@@ -36,11 +36,13 @@ export class SequenceRunner<T extends Context> {
     this.ctx = ctx;
   }
 
-  async next() {
+  async next(context: T) {
+    this.ctx = context;
+
     // if current is empty get start,
     if (this.curr) {
       // otherwise use curr node.choose to lookup in tree
-      const { viewName, message } = await getView(this.curr, this.ctx);
+      const { viewName, message } = await getView(this.curr, context);
 
       // Something did not go well
       if (!viewName) {
@@ -49,27 +51,31 @@ export class SequenceRunner<T extends Context> {
 
       // Finished
       if (viewName === "done") {
-        return `current view -> done "your are finished"`;
+        return `current view -> done "your are finished" | ${JSON.stringify(
+          this.ctx
+        )}`;
       } else {
         if (this.tree.views[viewName]) {
           this.old.push(this.curr);
 
           this.curr = this.tree.views[viewName];
-          return `current view -> ${viewName}`;
+          return `current view -> ${viewName} | ${JSON.stringify(this.ctx)}`;
         } else {
           return `${viewName} is not configured`;
         }
       }
     } else {
       this.curr = this.tree.views["start"];
-      return `current view -> start`;
+      return `current view -> start | ${JSON.stringify(this.ctx)}`;
     }
   }
 
-  back() {
+  back(context: T) {
     if (this.old.length) {
       this.curr = this.old.pop();
-      return `current view -> ${this.curr?.viewName}`;
+      return `current view -> ${this.curr?.viewName} | ${JSON.stringify(
+        this.ctx
+      )}`;
     } else {
       return "nothing to go back to";
     }

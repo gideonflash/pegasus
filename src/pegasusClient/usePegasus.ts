@@ -13,12 +13,8 @@ export const usePegasus = (
   const [logs, setLog] = useState("Action logs:\n");
   const [enquiry] = useState(new SequenceRunner(config, context));
 
-  /**
-   * TODO:
-   * Use new context on update
-   */
   const onNext = () => {
-    enquiry.next().then((message) => {
+    enquiry.next(context).then((message) => {
       setLog((prev) => {
         return `${prev}\n${message}`;
       });
@@ -26,7 +22,7 @@ export const usePegasus = (
   };
 
   const onBack = () => {
-    const message = enquiry.back();
+    const message = enquiry.back(context);
     setLog((prev) => {
       return `${prev}\n${message}`;
     });
