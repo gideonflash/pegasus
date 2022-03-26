@@ -10,8 +10,10 @@ import { PegasusClientClientConfig } from "../pegasusRunner/flowRunner";
 import { ViewEditor } from "./ViewEditor";
 import { ViewAdder } from "./ViewAdder";
 
+type SetValidConfig = (config: PegasusClientClientConfig | null) => void;
+
 interface ConfigCreatorProps {
-  onValidConfig: (config: PegasusClientClientConfig | null) => void;
+  onValidConfig: SetValidConfig;
 }
 
 export const Env = {
@@ -24,10 +26,12 @@ export const Env = {
  * Remove view
  */
 
-export const ConfigCreator = ({ onValidConfig }: ConfigCreatorProps) => {
+const useConfigCreator = () => {
   const [config, setConfig] = useState(createUiState());
   const [viewAdderErr, setViewAdderErr] = useState("");
   const [isValidConfig, setIsValidConfig] = useState(false);
+  const [validConfig, setValidConfig] =
+    useState<PegasusClientClientConfig | null>(null);
 
   useEffect(() => {
     if (config.views) {
@@ -49,9 +53,9 @@ export const ConfigCreator = ({ onValidConfig }: ConfigCreatorProps) => {
       setIsValidConfig(hasValidViews);
 
       if (hasValidViews) {
-        onValidConfig(config as PegasusClientClientConfig);
+        setValidConfig(config as PegasusClientClientConfig);
       } else {
-        onValidConfig(null);
+        setValidConfig(null);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -113,16 +117,39 @@ export const ConfigCreator = ({ onValidConfig }: ConfigCreatorProps) => {
   };
 
   const views = config.views && Object.entries(config.views);
+  return {
+    errors: { isValidConfig, viewAdderErr },
+    views,
+    addViewToConfig,
+    addLogicToView,
+    addComponentName,
+    validConfig,
+  };
+};
 
+export const ConfigCreator = ({ onValidConfig }: ConfigCreatorProps) => {
+  const {
+    errors,
+    views,
+    addViewToConfig,
+    addLogicToView,
+    addComponentName,
+    validConfig,
+  } = useConfigCreator();
+
+  useEffect(() => onValidConfig(validConfig), [validConfig]);
   return (
     <Container>
       <Text fontWeight="heading">Config builder</Text>
 
       <Text color="grey" fontSize="small" m={1}>
-        Your config is: {isValidConfig ? `valid` : `notValid`}
+        Your config is: {errors.isValidConfig ? `valid` : `notValid`}
       </Text>
 
-      <ViewAdder addViewToConfig={addViewToConfig} errMsg={viewAdderErr} />
+      <ViewAdder
+        addViewToConfig={addViewToConfig}
+        errMsg={errors.viewAdderErr}
+      />
 
       {views &&
         views.map(([viewName, viewConfig]) => {
