@@ -13,6 +13,8 @@ Pegasus is a tool for making it easy to create user input data flows e.g Wizards
 
 ### Quick start
 
+start project - `yarn && yarn start` http://localhost:3000/
+
 **Basic flow**
 
 screen recording ![example](./examples/basic.gif)
