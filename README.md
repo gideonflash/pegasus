@@ -15,7 +15,7 @@ Pegasus is a tool for making it easy to create user input data flows e.g Wizards
 
 **Basic flow**
 
-screen recording [example](./examples/basic.gif)
+screen recording ![example](./examples/basic.gif)
 
 1. add - show “tags” in start view
 2. create - tags view
@@ -24,7 +24,7 @@ screen recording [example](./examples/basic.gif)
 
 **Conditional flow**
 
-screen recording [example](./examples/conditional.gif)
+screen recording ![example](./examples/conditional.gif)
 
 1. add - if user equal "customer" then show "eventType” in start view
 2. create - eventType view
