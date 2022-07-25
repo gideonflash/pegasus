@@ -47,10 +47,6 @@ export const viewsCollection: ViewComponents = {
     name: "Start page",
     component: Tags,
   },
-  priorityTags: {
-    name: "Start page",
-    component: Welcome,
-  },
   done: {
     name: "Start page",
     component: Welcome,

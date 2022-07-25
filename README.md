@@ -1,46 +1,32 @@
-# Getting Started with Create React App
+# Overview
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**About**
 
-## Available Scripts
+Pegasus is a tool for making it easy to create user input data flows e.g Wizards, questionairs e.t.c. You can add basic sequences, apply conditional logic that needs to be satisfied before users of your flow moves on to the next step. You also have the ability to run A/B testing on your flows therefore allowing you to segment which types of users see particular flows. Think of pegasus as highly customisable striped down version of type form.
 
-In the project directory, you can run:
+### Features overview
 
-### `yarn start`
+- Create custom components for you flows
+- Basic linear flows - no conditional logic invovled
+- Conditional logic, base on what they have select - use what the user has inputed to determine whats next
+- A/B testing for experiement - allows you to segement user who will see particular flows
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Quick start
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+**Basic flow**
 
-### `yarn test`
+screen recording [example](./examples/basic.gif)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. add - show “tags” in start view
+2. create - tags view
+3. add - show “done” in tags view
+4. run config - click next should take you start view → tags view
 
-### `yarn build`
+**Conditional flow**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+screen recording [example](./examples/conditional.gif)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. add - if user equal "customer" then show "eventType” in start view
+2. create - eventType view
+3. add - show “done” in eventType view
+4. run config - click next should take you start view → eventType view
